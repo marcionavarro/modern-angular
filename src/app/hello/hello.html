@@ -1,9 +1,10 @@
 <p>Este é meu primeiro componente Angular!!</p>
 
 <h1>{{ title }}</h1>
-<button
-[disabled]="isDisabled"
-(click)="onClick()"
->
-  Toggle!
-</button>
+<button [disabled]="isDisabled" (click)="onClick()">Toggle!</button>
+
+<h1>{{ count() }}</h1>
+
+<button (click)="increateCounter()">+</button>
+<button (click)="decreaseCounter()">-</button>
+<button (click)="resetCounter()">Limpar</button>
