@@ -1,11 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { Product } from '../product';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-product-card',
-  imports: [MatCardModule, MatButtonModule],
+  imports: [MatCardModule, MatButtonModule, DecimalPipe],
   templateUrl: './product-card.html',
   styleUrl: './product-card.scss',
 })
-export class ProductCard {}
+export class ProductCard {
+  readonly product = input.required<Product>();
+  readonly addButtonLabel = input('Adicionar ao carrinho');
+}

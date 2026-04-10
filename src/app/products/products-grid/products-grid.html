@@ -1,9 +1,7 @@
 <div class="products-container">
-  <p>Total de produtos: {{ products().length }}</p>
-
   <div class="products-grid">
     @for (product of products(); track product.id) {
-      <app-product-card />
+      <app-product-card [product]="product" />
     } @empty {
       <div class="empty-state">
         <mat-icon>inventory_2</mat-icon>
@@ -13,26 +11,3 @@
     }
   </div>
 </div>
-
-<ul>
-  @for (
-    label of ['Produto 1', 'Produto 2', 'Produto 3', 'Produto 4'];
-    track $index;
-    let i = $index;
-    let total = $count;
-    let isFirst = $first;
-    let isLast = $last;
-    let isEven = $even;
-    let isOdd = $odd
-  ) {
-    <li
-      class="demo-item"
-      [class.first-item]="isFirst"
-      [class.last-item]="isLast"
-      [class.even-row]="isEven"
-      [class.odd-row]="isOdd"
-    >
-      {{ i + 1 }} para {{ total }} - {{ label }}
-    </li>
-  }
-</ul>
