@@ -5,8 +5,17 @@
   </mat-card-header>
 
   <mat-card-content>
+    @if (product().originalPrice) {
+      <span class="sale-badge">À venda</span>
+      <p class="price-row">
+        <span class="current-price">{{ product().price | number: '1.2-2' }}</span>
+        <span class="original-price">{{ product().originalPrice | number: '1.2-2' }}</span>
+      </p>
+    } @else {
+      <span class="current-price">{{ product().price | number: '1.2-2' }}</span>
+    }
+
     <p>{{ product().description }}</p>
-    <p class="price">R$ {{ product().price | number:'1.2-2' }}</p>
   </mat-card-content>
 
   <mat-card-actions>
