@@ -1,10 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Product } from '../product';
-import { ProductCard } from "../product-card/product-card";
+import { ProductCard } from '../product-card/product-card';
 
 @Component({
   selector: 'app-products-grid',
@@ -20,21 +20,22 @@ export class ProductsGrid {
       id: 1,
       name: 'Cafeteira elétrica',
       description: 'Cafeteira automática com reservatório de 1,5L e botão de preparo rápido.',
-      price: 249.90,
-      originalPrice: 299.90,
+      price: 249.9,
+      originalPrice: 299.9,
     },
     {
       id: 2,
       name: 'Fone de ouvido sem fio',
       description: 'Fone Bluetooth com cancelamento de ruído e até 20 horas de bateria.',
-      price: 179.90,
-      originalPrice: 219.90,
+      price: 179.9,
+      originalPrice: 219.9,
     },
     {
       id: 3,
       name: 'Mochila urbana',
-      description: 'Mochila resistente, com compartimento para notebook de 15,6" e bolsos organizadores.',
-      price: 169.90,
+      description:
+        'Mochila resistente, com compartimento para notebook de 15,6" e bolsos organizadores.',
+      price: 169.9,
     },
     /* {
       id: 4,
@@ -45,11 +46,22 @@ export class ProductsGrid {
     }, */
   ]);
 
+  protected readonly filteredProducts = computed(() => {
+    const term = this.searhTerm().toLocaleLowerCase().trim();
+    if (!term) return this.products();
+
+    return this.products().filter(
+      (product) =>
+        product.name.toLocaleLowerCase().includes(term) ||
+        product.description.toLocaleLowerCase().includes(term),
+    );
+  });
+
   protected clearSearch() {
     this.searhTerm.set('');
   }
 
-  protected trimSearch() {
+  /* protected trimSearch() {
     this.searhTerm.update(value => value.trim());
-  }
+  } */
 }
