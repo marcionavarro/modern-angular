@@ -1,4 +1,5 @@
-import { Component, computed, signal } from '@angular/core';
+import { CartService } from './../../cart/cart-service';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,6 +14,7 @@ import { ProductCard } from '../product-card/product-card';
   styleUrl: './products-grid.scss',
 })
 export class ProductsGrid {
+
   protected readonly searhTerm = signal('');
 
   protected readonly products = signal<Product[]>([
@@ -46,6 +48,8 @@ export class ProductsGrid {
     }, */
   ]);
 
+  private readonly cartService = inject(CartService);
+
   protected readonly filteredProducts = computed(() => {
     const term = this.searhTerm().toLocaleLowerCase().trim();
     if (!term) return this.products();
@@ -57,8 +61,8 @@ export class ProductsGrid {
     );
   });
 
-  protected onAddToCard(product: Product) {
-    console.log('Produto adicionado ao carrinho:', product.name);
+  protected onAddToCart(product: Product) {
+    this.cartService.addTocart(product);
   }
 
   /* protected clearSearch() {
